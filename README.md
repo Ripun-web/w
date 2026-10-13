@@ -22,8 +22,7 @@ Requires Node.js 20 or newer.
 ```bash
 sudo apt update
 sudo apt install -y ca-certificates curl git
-# Install Node.js 20+ using your preferred trusted package source.
-git clone https://github.com/Ripun-web/w.git
+git clone --branch ubuntu-otp-service https://github.com/Ripun-web/w.git
 cd w
 npm install
 cp .env.example .env
@@ -33,7 +32,7 @@ npm start
 
 Set unique random values for `CONNECTOR_API_TOKEN` and `OTP_PEPPER`. Keep `.env` and `auth_info/` private. Never commit session credentials or secrets.
 
-Railway can deploy from this repository using `npm start`. Configure the same environment variables in Railway's Variables panel.
+Railway can deploy from this repository by selecting the `ubuntu-otp-service` branch. Configure the same environment variables in Railway's Variables panel.
 
 ## Authentication
 
@@ -49,19 +48,16 @@ The `/` and `/health` endpoints are public health/info endpoints. All other rout
 
 ### Start and inspect connection
 
-`POST /connect`
+- `POST /connect`
+- `GET /qr` — returns a QR string and a `dataUrl` image when available
+- `GET /status`
+- `GET /health`
 
-`GET /qr` — returns a QR string and a `dataUrl` image when available.
-
-`GET /status`
-
-`GET /health`
-
-Pairing code:
+Pairing code: send `POST /pair` with:
 ```json
 { "number": "919876543210" }
 ```
-Send this to `POST /pair`, then enter the code in WhatsApp > Linked devices.
+Enter the returned code in WhatsApp > Linked devices.
 
 ### Send a message
 
@@ -77,7 +73,7 @@ Send this to `POST /pair`, then enter the code in WhatsApp > Linked devices.
 { "to": "919876543210" }
 ```
 
-The service sends a 6-digit code to that WhatsApp number. Response contains expiry duration only; the OTP is never returned by the API.
+The service sends a 6-digit code to that WhatsApp number. The response contains expiry duration only; the OTP is never returned by the API.
 
 ### Verify OTP
 
