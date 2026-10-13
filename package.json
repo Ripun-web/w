@@ -1,0 +1,18 @@
+{
+  "name": "rbwa-whatsapp-connector",
+  "version": "5.0.0",
+  "description": "Compliance-first WhatsApp Baileys connector",
+  "main": "connector.js",
+  "scripts": {
+    "start": "node connector.js"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "@whiskeysockets/baileys": "latest",
+    "express": "^5.1.0",
+    "pino": "^10.1.0",
+    "qrcode": "^1.5.4"
+  }
+}
